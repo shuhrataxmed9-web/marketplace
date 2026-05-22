@@ -1,53 +1,75 @@
-# AI Travel Assistant
+# Marketplace Platform
 
-**AI Travel Assistant** — Buxoro bo'yicha aqlli sayohat yordamchisi: xarita, marshrutlar, tarixiy obidalar va mahalliy xizmatlar. **O'zbek, rus va ingliz** tillarida.
+Production-ready multi-vendor marketplace monorepo.
 
-## Tillar
+## Structure
 
-Bosh sahifada: **Oʻzbek** | **Русский** | **English**
-
-Tanlangan til saqlanadi va barcha matnlar shu tilda ko'rsatiladi.
-
-## APK yig'ish
-
-### Tez usul: `build-apk.ps1`
-
-```powershell
-cd c:\1111111\buxoro-tarix
-.\build-apk.ps1
+```
+marketplace/
+├── frontend/     Next.js 15 App Router
+├── backend/      Express + Prisma + Socket.IO
+├── shared/       Shared types and validation
+├── docker/       Dockerfiles
+├── nginx/        Reverse proxy config
+└── docs/         Deployment guides
 ```
 
-Android Studio o'rnatilgan bo'lsa, `AITravelAssistant-debug.apk` papkada paydo bo'ladi.
+## Quick Start
 
-### GitHub Actions (kompyuterda SDK shart emas)
+### Prerequisites
 
-1. Loyihani GitHub ga yuklang
-2. **Actions** → **Build Android APK** → **Run workflow**
-3. Tugagach **AITravelAssistant-apk** artifact dan APK ni yuklab oling
+- Node.js 20+
+- PostgreSQL 16+
+- Redis 7+
 
-### EAS Build (bulut)
+### Local Development
 
 ```bash
-cd buxoro-tarix
+cd marketplace
 npm install
-npx eas login
-npx eas build -p android --profile preview
+
+# Copy environment files
+cp .env.example backend/.env
+cp frontend/.env.example frontend/.env.local
+
+# Start PostgreSQL and Redis (or use Docker)
+npm run docker:up
+
+# Setup database
+npm run db:push
+npm run db:seed
+
+# Start dev servers
+npm run dev
 ```
 
-### Expo Go (tezkor sinov)
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:4000/api/v1
+- Swagger: http://localhost:4000/api/docs
 
-```bash
-npm install
-npx expo start
-```
+### Seed Accounts
 
-Telefonda Expo Go + QR-kod.
+| Role   | Email                  | Password   |
+|--------|------------------------|------------|
+| Admin  | admin@marketplace.uz   | Admin123!  |
+| Buyer  | buyer@marketplace.uz   | Buyer123!  |
+| Seller | seller@marketplace.uz  | Seller123! |
 
-## Imkoniyatlar
+## Scripts
 
-- AI tavsiya qilingan sayohat marshrutlari
-- 18 ta Buxoro tarixiy obidasi
-- Oflayn xarita (~4 MB)
-- 3 til: uz / ru / en
-- Masofa, yo'nalish, xizmatlar (ovqat, mehmonxona, EV zaryadlash va boshqalar)
-- Google Maps / Yandex Maps integratsiyasi
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start frontend + backend |
+| `npm run build` | Build all packages |
+| `npm run typecheck` | TypeScript check |
+| `npm run db:migrate` | Run Prisma migrations |
+| `npm run db:seed` | Seed database |
+| `npm run docker:up` | Start Docker services |
+
+## Documentation
+
+- [Free Tier Deploy (Vercel + Render + Neon)](docs/FREE_TIER_DEPLOYMENT.md)
+- [Local Development](docs/LOCAL_DEVELOPMENT.md)
+- [Docker Deployment](docs/DOCKER_DEPLOYMENT.md)
+- [VPS Deployment](docs/VPS_DEPLOYMENT.md)
+- [Vercel Deployment](docs/VERCEL_DEPLOYMENT.md)

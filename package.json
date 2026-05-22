@@ -1,40 +1,39 @@
 {
-  "name": "ai-travel-assistant",
+  "name": "marketplace-platform",
   "version": "1.0.0",
-  "main": "expo/AppEntry.js",
+  "private": true,
+  "description": "Production-ready multi-vendor marketplace platform",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "shared"
+  ],
   "scripts": {
-    "start": "expo start",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "web": "expo start --web",
-    "prebuild": "expo prebuild --platform android",
-    "build:apk": "eas build -p android --profile preview --local",
-    "build:apk:cloud": "eas build -p android --profile preview"
-  },
-  "dependencies": {
-    "@react-native-async-storage/async-storage": "1.23.1",
-    "@react-navigation/native": "^7.0.14",
-    "@react-navigation/native-stack": "^7.2.0",
-    "expo": "~52.0.0",
-    "expo-asset": "~11.0.5",
-    "expo-build-properties": "~0.13.0",
-    "expo-camera": "~16.0.18",
-    "expo-file-system": "~18.0.12",
-    "expo-linear-gradient": "~14.0.2",
-    "expo-localization": "~16.0.0",
-    "expo-location": "~18.0.0",
-    "expo-speech": "~13.0.1",
-    "expo-status-bar": "~2.0.0",
-    "react": "18.3.1",
-    "react-native": "0.76.5",
-    "react-native-maps": "1.18.0",
-    "react-native-safe-area-context": "4.12.0",
-    "react-native-screens": "~4.4.0"
+    "dev": "concurrently \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "dev:backend": "npm run dev -w backend",
+    "dev:frontend": "npm run dev -w frontend",
+    "build": "npm run build -w shared && npm run build -w backend && npm run build -w frontend",
+    "build:backend": "npm run build -w backend",
+    "build:frontend": "npm run build -w frontend",
+    "lint": "npm run lint -w backend && npm run lint -w frontend",
+    "typecheck": "npm run typecheck -w shared && npm run typecheck -w backend && npm run typecheck -w frontend",
+    "db:generate": "npm run db:generate -w backend",
+    "db:migrate": "npm run db:migrate -w backend",
+    "db:push": "npm run db:push -w backend",
+    "db:seed": "npm run db:seed -w backend",
+    "db:studio": "npm run db:studio -w backend",
+    "docker:up": "docker compose -f docker-compose.yml up -d",
+    "docker:down": "docker compose -f docker-compose.yml down",
+    "docker:build": "docker compose -f docker-compose.yml build",
+    "build:cloud": "npm run build -w shared && npm run db:generate -w backend && npm run build -w backend",
+    "build:vercel": "npm run build -w shared && npm run build -w frontend",
+    "start:cloud": "npm run start -w backend",
+    "deploy:db": "npm run db:push -w backend && npm run db:seed -w backend"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.0",
-    "@types/react": "~18.3.12",
-    "typescript": "~5.3.0"
+    "concurrently": "^9.1.2"
   },
-  "private": true
+  "engines": {
+    "node": ">=20.0.0"
+  }
 }

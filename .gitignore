@@ -1,14 +1,43 @@
+# Dependencies
 node_modules/
-tools/
-.expo/
+.pnp
+.pnp.js
+
+# Build
 dist/
-npm-debug.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.orig.*
-web-build/
+build/
+.next/
+out/
+*.tsbuildinfo
+
+# Environment (NEVER commit secrets)
 .env
 .env.local
+.env.*.local
+backend/.env
+frontend/.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Uploads & cache
+uploads/
+.turbo/
+coverage/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Prisma
+backend/prisma/*.db
+backend/prisma/*.db-journal
+
+# Docker volumes
+postgres_data/

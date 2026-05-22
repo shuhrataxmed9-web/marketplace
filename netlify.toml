@@ -1,0 +1,9 @@
+[build]
+  base    = "marketplace/frontend"
+  command = "cd .. && npm install && npm run build:vercel"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "20"

@@ -1,0 +1,14 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "npm install && npm run build:cloud && cd backend && npx prisma db push --accept-data-loss"
+
+[deploy]
+startCommand = "npm run start:cloud"
+healthcheckPath = "/api/v1/health"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+
+[env]
+NODE_ENV = "production"
+PORT = "4000"
+REDIS_ENABLED = "false"
