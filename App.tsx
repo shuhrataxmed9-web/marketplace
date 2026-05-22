@@ -1,0 +1,15 @@
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { LanguageProvider } from "./src/i18n/LanguageContext";
+import { AppNavigation } from "./src/navigation";
+
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <LanguageProvider>
+        <StatusBar style="light" />
+        <AppNavigation />
+      </LanguageProvider>
+    </SafeAreaProvider>
+  );
+}

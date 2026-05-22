@@ -1,0 +1,69 @@
+{
+  "expo": {
+    "name": "AI Travel Assistant",
+    "slug": "ai-travel-assistant",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#032B35"
+    },
+    "locales": {
+      "uz": "./locales/uz.json",
+      "ru": "./locales/ru.json",
+      "en": "./locales/en.json"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aitravel.assistant",
+      "infoPlist": {
+        "CFBundleAllowMixedLocalizations": true,
+        "NSCameraUsageDescription": "AI Travel Assistant uses the camera to scan monument QR codes."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#032B35"
+      },
+      "package": "com.aitravel.assistant",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CAMERA"
+      ]
+    },
+    "plugins": [
+      "expo-localization",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "AI Travel Assistant needs your location to show distances and routes to nearby places."
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "AI Travel Assistant uses the camera to scan monument QR codes."
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true,
+            "kotlinVersion": "1.9.25"
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ai-travel-assistant"
+      }
+    }
+  }
+}
